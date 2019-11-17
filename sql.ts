@@ -47,8 +47,9 @@ const createTable = ()=>{
 }
 
 const insertDanmaku = (msg:Danmaku)=>{
-    const sql = `insert into danmaku(id,message,room_id,mid,uname,timestamp) values(${msg.mid.toString()+msg.timestamp.toString()},'${msg.message}',${msg.roomid},${msg.mid},'${msg.uname}',${msg.timestamp})`
-    connection.query(sql,handleSqlResult);
+    const sql = `insert into danmaku(id,message,room_id,mid,uname,timestamp) values(?,?,?,?,?,?)`;
+    const params = [msg.mid.toString()+msg.timestamp.toString(),msg.message,msg.roomid,msg.mid,msg.uname,msg.timestamp]
+    connection.query(sql,params,handleSqlResult);
     logger.log(msg);
 }
 
